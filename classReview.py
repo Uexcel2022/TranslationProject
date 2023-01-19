@@ -216,6 +216,7 @@ class Insert:
 
         except sqlite3.OperationalError:
             return 'OperationalError'
+        
     @classmethod
     def UserLogTable(cls, Phone, Pin, PrivateKey, PublicKey):
         import sqlite3
@@ -287,6 +288,7 @@ class GenerateKey:
                     time.sleep(1)
                     break
                 FetchData.Data(phone)
+                break
             except KeyboardInterrupt:
                 print("Program terminated")
                 break
