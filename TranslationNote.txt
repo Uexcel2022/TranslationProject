@@ -1,0 +1,17 @@
+
+English={'Hausa': 'zo', 'French': 'viens', 'Dutch': 'komen'}
+English={'French': 'viens', 'Dutch': 'komen', 'Hausa': 'zo'}
+English={'Hausa': 'Faransanci', 'Dutch': 'Frans'}
+English={'Hausa': 'na gode'}
+English={'French': 'viens', 'Dutch': 'komen', 'Igbo': 'bia'}
+English={'Igbo': 'bia'}
+English={'Hausa': 'na gode', 'French': 'Merci'}
+English={'Hausa': 'zo', 'Igbo': 'bia', 'Yoruba': 'wá'}
+English={'Igbo': 'bia'}
+English= {'Igbo': 'bia'}
+English={'Igbo': 'bia'}
+English={'Igbo': 'bia'}
+English={'Hausa': 'zo', 'Igbo': 'bia'}
+English={'Hausa': 'ina son ku', 'French': "je t'aime", 'Dutch': 'ik houd van je'}
+English={'Yoruba': 'wá', 'Hausa': 'zo', 'Igbo': 'bia'}
+English={'Igbo': 'bia'}
