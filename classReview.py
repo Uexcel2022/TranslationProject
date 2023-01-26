@@ -216,7 +216,7 @@ class Insert:
 
         except sqlite3.OperationalError:
             return 'OperationalError'
-        
+
     @classmethod
     def UserLogTable(cls, Phone, Pin, PrivateKey, PublicKey):
         import sqlite3
@@ -326,22 +326,26 @@ class Login:
                     cur = conn.cursor()
                     cur.execute(f"SELECT * FROM UserLog WHERE PublicKey = '{PubKy}'")
                     records = cur.fetchall()
-                    for items in records:
-                        validPin += items[1]
-                        phone += items[0]
-                        if items[2] == PrKy:
-                            validPrKey.append(items[2])
+                    if len(records) == 0:
+                        print('Invalid public key.')
+                        continue
+                    else:
+                        if records[0][2] != PrKy:
+                            print('Invalid Private key.')
+                            continue
                         else:
-                            print("Invalid login details.")
+                            phone += records[0][0]
+                            validPin += records[0][1]
+                            validPrKey.append(records[0][2])
+
                     if len(validPrKey) > 0:
                         time.sleep(0.5)
                         conn = sqlite3.connect('UserData.db')
                         cur = conn.cursor()
                         cur.execute(f"SELECT * FROM UserDetail WHERE Phone == '{phone}'")
                         records1 = cur.fetchall()
-                        for items in records1:
-                            name += (items[0])
-                            count += int((items[5]))
+                        name += (records1[0][0])
+                        count += int((records1[0][5]))
                         print(f"Welcome {name},")
                         while True:
                             pin = input("Enter your pin to begin translation, N for new pin or O to quit: ").strip()
