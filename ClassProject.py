@@ -3,50 +3,50 @@ class FirstName:
     def __init__(self, firstName):
         self.firstName = firstName
     @classmethod
-    def returnFName(cls,data):
+    def returnFName(cls, checkName):
         while True:
             import re
-            if checkName1 := re.fullmatch(r"^[A-Za-z][A-Za-z]+", data):
-                return cls(checkName1.group().title())
+            if match := re.fullmatch(r"^[A-Za-z][A-Za-z]+", checkName):
+                return cls(match.group().title())
             else:
-                v = [x for x in data if not x.isalpha()]
-                print(f"Invalid. Remove {''.join(v)} or the white space or name < 2 letters.")
-                data = input("Enter first name or Q to quit:").title().strip()
-                if data == 'Q':
-                    return cls(data)
+                invalidChar = [x for x in checkName if not x.isalpha()]
+                print(f"Invalid. Remove {''.join(invalidChar)} or the white space or name < 2 letters.")
+                checkName = input("Enter first name or Q to quit:").title().strip()
+                if checkName == 'Q':
+                    return cls(checkName)
 
 
 class LastName:
     def __init__(self, lastName):
         self.lastName = lastName
     @classmethod
-    def returnLName(cls, data):
+    def returnLName(cls, checkName):
         while True:
             import re
-            if checkName1 := re.fullmatch(r"^[A-Za-z][A-Za-z]+", data):
-                return cls(checkName1.group().title())
+            if match := re.fullmatch(r"^[A-Za-z][A-Za-z]+", checkName):
+                return cls(match.group().title())
             else:
-                v = [x for x in data if not x.isalpha()]
-                print(f"Invalid. Remove {''.join(v)} or the white space or name < 2 letters.")
-                data = input("Enter last name or Q to quit:").strip().title()
-                if data == 'Q':
-                    return cls(data)
+                invalidChar = [x for x in checkName if not x.isalpha()]
+                print(f"Invalid. Remove {''.join(invalidChar)} or the white space or name < 2 letters.")
+                checkName = input("Enter last name or Q to quit:").strip().title()
+                if checkName == 'Q':
+                    return cls(checkName)
 
 class Email:
     def __init__(self, mail):
         self.mail = mail
     @classmethod
-    def returnEmail(cls,data):
+    def returnEmail(cls, checkEmail):
         while True:
             import re
-            data = data.lower()
-            if check2 := re.fullmatch(r"^[a-z0-9]+[_.]?[a-z0-9]+[_.]?[a-z0-9]+@[a-z0-9]+\.?[a-z]*\.([a-z]{2,3})",data):
-                return cls(check2.group())
+            checkEmail = checkEmail.lower()
+            if match := re.fullmatch(r"^[a-z0-9]+[_.]?[a-z0-9]+[_.]?[a-z0-9]+@[a-z0-9]+\.?[a-z]*\.([a-z]{2,3})", checkEmail):
+                return cls(match.group())
             else:
                 print("Invalid email format.")
-                data = input("Enter email or Q to quit:").strip().lower()
-                if data == 'q':
-                    return cls(data)
+                checkEmail = input("Enter email or Q to quit:").strip().lower()
+                if checkEmail == 'q':
+                    return cls(checkEmail)
 
 
 class Age:
