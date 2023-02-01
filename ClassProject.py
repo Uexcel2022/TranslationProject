@@ -44,7 +44,7 @@ class Email:
                 return cls(check2.group())
             else:
                 print("Invalid email format.")
-                data = input("Enter email or q to quit:").strip().lower()
+                data = input("Enter email or Q to quit:").strip().lower()
                 if data == 'q':
                     return cls(data)
 
@@ -97,7 +97,7 @@ class PersonInput:
                 ob4 = Phone.returnPhone(input("Enter phone:").strip())
                 if ob4.phone == '0':
                     break
-                ob5 = Email.returnEmail(input("Enter email:").strip())
+                ob5 = Email.returnEmail(input("Enter email:").lower().strip())
                 if ob5.mail == 'q':
                     break
                 else:
@@ -257,7 +257,7 @@ class Generate:
         import time
         while True:
             try:
-                phone = input("""Enter your phone number to generate new login details or "E" to Exit: """).strip()
+                phone = input("Enter your phone number to generate new login details or E to Exit:").strip()
                 print("Working on it...")
                 if phone == 'e' or phone == 'E':
                     time.sleep(1)
@@ -282,7 +282,7 @@ class Login:
             if brQ == 'Q':
                 break
             try:
-                publicKey = input("""Enter your Public key to Login, N for new login details, or "Q" to Quit: """).strip()
+                publicKey = input("Enter your Public key to Login, N for new login details, or Q to Quit:").strip()
                 if len(publicKey) == 1 and publicKey.upper() == 'N':
                     Generate.key()
                     continue
@@ -307,7 +307,7 @@ class Login:
                     else:
                         print(f"Welcome {records.name},")
                         while True:
-                            pin = input("Enter your pin to begin translation, N for new pin or O to quit: ").strip()
+                            pin = input("Enter your pin to begin translation, N for new pin or O to quit:").strip()
                             if pin == records.pin:
                                 data = Database.update(records.phone)
                                 if data is None:
@@ -430,7 +430,8 @@ class Translation:
                         SourceText = ([word.text])
                         Target = list(lang)
                         word = (list(lang.values()))
-                        TranslationTable = pd.DataFrame({f'{source.name.title()}': SourceText, 'Target': Target, 'Translated': word})
+                        TranslationTable = pd.DataFrame({f'{source.name.title()}': SourceText, 'Target': Target,
+                                                         'Translated': word})
                         TranslationTable.index = TranslationTable.index + 1
                         print(TranslationTable)
                         try:
