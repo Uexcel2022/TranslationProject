@@ -3,11 +3,11 @@ class FirstName:
     def __init__(self, firstName):
         self.firstName = firstName
     @classmethod
-    def returnFName(cls, checkName):
+    def validation(cls, checkName):
         while True:
             import re
-            if match := re.fullmatch(r"^[A-Za-z][A-Za-z]+", checkName):
-                return cls(match.group().title())
+            if matched := re.fullmatch(r"^[A-Za-z][A-Za-z]+", checkName):
+                return cls(matched.group().title())
             else:
                 invalidChar = [x for x in checkName if not x.isalpha()]
                 print(f"Invalid. Remove {''.join(invalidChar)} or the white space or name < 2 letters.")
@@ -20,11 +20,11 @@ class LastName:
     def __init__(self, lastName):
         self.lastName = lastName
     @classmethod
-    def returnLName(cls, checkName):
+    def validation(cls, checkName):
         while True:
             import re
-            if match := re.fullmatch(r"^[A-Za-z][A-Za-z]+", checkName):
-                return cls(match.group().title())
+            if matched := re.fullmatch(r"^[A-Za-z][A-Za-z]+", checkName):
+                return cls(matched.group().title())
             else:
                 invalidChar = [x for x in checkName if not x.isalpha()]
                 print(f"Invalid. Remove {''.join(invalidChar)} or the white space or name < 2 letters.")
@@ -36,12 +36,12 @@ class Email:
     def __init__(self, mail):
         self.mail = mail
     @classmethod
-    def returnEmail(cls, checkEmail):
+    def validation(cls, checkEmail):
         while True:
             import re
             checkEmail = checkEmail.lower()
-            if match := re.fullmatch(r"^[a-z0-9]+[_.]?[a-z0-9]+[_.]?[a-z0-9]+@[a-z0-9]+\.?[a-z]*\.([a-z]{2,3})", checkEmail):
-                return cls(match.group())
+            if matched := re.fullmatch(r"^[a-z0-9]+[_.]?[a-z0-9]+[_.]?[a-z0-9]+@[a-z0-9]+\.?[a-z]*\.([a-z]{2,3})", checkEmail):
+                return cls(matched.group())
             else:
                 print("Invalid email format.")
                 checkEmail = input("Enter email or Q to quit:").strip().lower()
@@ -50,54 +50,53 @@ class Email:
 
 
 class Age:
-    def __init__(self,age):
+    def __init__(self, age):
         self.age = age
     @classmethod
-    def returnAge(cls,data):
+    def validation(cls, checkAge):
         while True:
             import re
-            if match := re.fullmatch(r"^[1-9][8-9]|[2-9][0-9]|1[0-5][0-9]", data):
-                return cls(match.group())
+            if matched := re.fullmatch(r"^[1-9][8-9]|[2-9][0-9]|1[0-5][0-9]", checkAge):
+                return cls(matched.group())
             else:
                 print('18 < age > 159 or not entirely digit.')
-                data = input("Enter age or 0 to quit:").strip()
-                if data == '0':
-                    return cls(data)
+                checkAge = input("Enter age or 0 to quit:").strip()
+                if checkAge == '0':
+                    return cls(checkAge)
 
 class Phone:
     def __init__(self,phone):
         self.phone = phone
-
     @classmethod
-    def returnPhone(cls,data):
+    def validation(cls, checkPhone):
         while True:
             import re
-            if match := re.fullmatch("\+234[7-9][0-1][0-9]{8}|0[7-9][0-1][0-9]{8}", data):
-                return cls(match.group())
+            if matched := re.fullmatch("\+234[7-9][0-1][0-9]{8}|0[7-9][0-1][0-9]{8}", checkPhone):
+                return cls(matched.group())
             else:
                 print('Invalid Nig phone number.')
-                data = input("Enter phone or 0 to quit:").strip()
-                if data == '0':
-                    return cls(data)
+                checkPhone = input("Enter phone or 0 to quit:").strip()
+                if checkPhone == '0':
+                    return cls(checkPhone)
 
 class PersonInput:
     @classmethod
     def input(cls):
         while True:
             try:
-                ob1 = FirstName.returnFName(input("Enter first name:").title().strip())
+                ob1 = FirstName.validation(input("Enter first name:").title().strip())
                 if ob1.firstName == 'Q':
                     break
-                ob2 = LastName.returnLName(input("Enter last name:").title().strip())
+                ob2 = LastName.validation(input("Enter last name:").title().strip())
                 if ob2.lastName == 'Q':
                     break
-                ob3 = Age.returnAge(input("Enter age:").strip())
+                ob3 = Age.validation(input("Enter age:").strip())
                 if ob3.age == '0':
                     break
-                ob4 = Phone.returnPhone(input("Enter phone:").strip())
+                ob4 = Phone.validation(input("Enter phone:").strip())
                 if ob4.phone == '0':
                     break
-                ob5 = Email.returnEmail(input("Enter email:").lower().strip())
+                ob5 = Email.validation(input("Enter email:").lower().strip())
                 if ob5.mail == 'q':
                     break
                 else:
@@ -255,11 +254,16 @@ class Generate:
     @classmethod
     def key(cls):
         import time
+        Quit = ''
+        brake = ''
         while True:
             try:
+                if brake == 'Q':
+                    break
                 phone = input("Enter your phone number to generate new login details or E to Exit:").strip()
                 print("Working on it...")
                 if phone == 'e' or phone == 'E':
+                    Quit += phone.upper()
                     time.sleep(1)
                     break
                 data = FetchData.dataPhone(phone)
@@ -283,7 +287,7 @@ class Login:
                 break
             try:
                 publicKey = input("Enter your Public key to Login, N for new login details, or Q to Quit:").strip()
-                if len(publicKey) == 1 and publicKey.upper() == 'N':
+                if publicKey.upper() == 'N':
                     Generate.key()
                     continue
 
@@ -292,6 +296,7 @@ class Login:
                     print('Quiting...')
                     time.sleep(0.5)
                     break
+
                 else:
                     privateKey = input("Enter private key: ").strip()
                     time.sleep(0.5)
@@ -430,8 +435,8 @@ class Translation:
                         SourceText = ([word.text])
                         Target = list(lang)
                         word = (list(lang.values()))
-                        TranslationTable = pd.DataFrame({f'{source.name.title()}': SourceText, 'Target': Target,
-                                                         'Translated': word})
+                        TranslationTable = pd.DataFrame({f'{source.name.title()}': SourceText,
+                                                         'Target': Target, 'Translated': word})
                         TranslationTable.index = TranslationTable.index + 1
                         print(TranslationTable)
                         try:
