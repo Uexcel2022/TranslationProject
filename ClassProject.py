@@ -1,107 +1,119 @@
 
 class FirstName:
     def __init__(self, firstName):
+        self.firstName = firstName
+    @classmethod
+    def returnFName(cls,data):
         while True:
             import re
-            if checkName1 := re.fullmatch(r"^[A-Za-z][A-Za-z]+", firstName):
-                self.firstName = checkName1.group().title()
-                break
+            if checkName1 := re.fullmatch(r"^[A-Za-z][A-Za-z]+", data):
+                return cls(checkName1.group().title())
             else:
-                v = [x for x in firstName if not x.isalpha()]
-                self.firstName = f"Invalid. Remove {''.join(v)} or the white space or name < 2 letters."
-                print(self.firstName)
-                firstName = input("first name:").strip()
-                self.firstName = firstName
-
-    def returnFName(self):
-        return self.firstName
+                v = [x for x in data if not x.isalpha()]
+                print(f"Invalid. Remove {''.join(v)} or the white space or name < 2 letters.")
+                data = input("Enter first name or Q to quit:").title().strip()
+                if data == 'Q':
+                    return cls(data)
 
 
 class LastName:
     def __init__(self, lastName):
+        self.lastName = lastName
+    @classmethod
+    def returnLName(cls, data):
         while True:
             import re
-            if checkName1 := re.fullmatch(r"^[A-Za-z][A-Za-z]+", lastName):
-                self.lastName = checkName1.group().title()
-                break
+            if checkName1 := re.fullmatch(r"^[A-Za-z][A-Za-z]+", data):
+                return cls(checkName1.group().title())
             else:
-                v = [x for x in lastName if not x.isalpha()]
-                self.lastName = f"Invalid. Remove {''.join(v)} or the white space or name < 2 letters."
-                print(self.lastName)
-                lastName = input(" last name:").strip().title()
-                self.lastName = lastName
-
-    def returnLName(self):
-        return self.lastName
-
+                v = [x for x in data if not x.isalpha()]
+                print(f"Invalid. Remove {''.join(v)} or the white space or name < 2 letters.")
+                data = input("Enter last name or Q to quit:").strip().title()
+                if data == 'Q':
+                    return cls(data)
 
 class Email:
     def __init__(self, mail):
+        self.mail = mail
+    @classmethod
+    def returnEmail(cls,data):
         while True:
             import re
-            mail = mail.lower()
-            if check2 := re.fullmatch(r"^[a-z0-9]+[_.]?[a-z0-9]+[_.]?[a-z0-9]+@[a-z0-9]+\.?[a-z]*\.([a-z]{2,3})",mail):
-                self.mail = check2.group()
-                break
+            data = data.lower()
+            if check2 := re.fullmatch(r"^[a-z0-9]+[_.]?[a-z0-9]+[_.]?[a-z0-9]+@[a-z0-9]+\.?[a-z]*\.([a-z]{2,3})",data):
+                return cls(check2.group())
             else:
-                self.mail = check2
-                print("invalid email format")
-                mail = input("Email:").strip().lower()
-                self.mail = mail
-
-    def returnEmail(self):
-        return self.mail
+                print("Invalid email format.")
+                data = input("Enter email or q to quit:").strip().lower()
+                if data == 'q':
+                    return cls(data)
 
 
 class Age:
     def __init__(self,age):
+        self.age = age
+    @classmethod
+    def returnAge(cls,data):
         while True:
             import re
-            if match := re.fullmatch(r"^[1-9][8-9]|[2-9][0-9]|1[0-5][0-9]", age):
-                self.age = match.group()
-                break
+            if match := re.fullmatch(r"^[1-9][8-9]|[2-9][0-9]|1[0-5][0-9]", data):
+                return cls(match.group())
             else:
-                self.age = '18 < age > 159 or not entirely digit.'
-                print(self.age)
-                age = input("Age:").strip()
-                self.age = age
-
-    def returnAge(self):
-        return self.age
-
+                print('18 < age > 159 or not entirely digit.')
+                data = input("Enter age or 0 to quit:").strip()
+                if data == '0':
+                    return cls(data)
 
 class Phone:
     def __init__(self,phone):
+        self.phone = phone
+
+    @classmethod
+    def returnPhone(cls,data):
         while True:
             import re
-            if match := re.fullmatch("\+234[7-9][0-1][0-9]{8}|0[7-9][0-1][0-9]{8}", phone):
-                self.phone = match.group()
-                break
+            if match := re.fullmatch("\+234[7-9][0-1][0-9]{8}|0[7-9][0-1][0-9]{8}", data):
+                return cls(match.group())
             else:
-                self.phone = 'Invalid Nig phone number.'
-                print(self.phone)
-                phone = input("Phone:").strip()
-                self.phone = phone
-
-    def returnPhone(self):
-        return self.phone
-
+                print('Invalid Nig phone number.')
+                data = input("Enter phone or 0 to quit:").strip()
+                if data == '0':
+                    return cls(data)
 
 class PersonInput:
     @classmethod
     def input(cls):
-        ob1 = FirstName(input("first name:").strip())
-        ob2 = LastName(input(" last name:").strip())
-        ob3 = Age(input("Age:").strip())
-        ob4 = Phone(input("Phone:").strip())
-        ob5 = Email(input("Email:").strip())
-        # print(f"{ob1.returnFName()} {ob2.returnLName()} {ob3.returnAge()} {ob4.returnPhone()} {ob5.returnEmail()}")
-        import time
-        print("Processing data...")
-        time.sleep(2)
-        data = Code.GenerateCode()
-        Database.PersonData(ob1.returnFName(), ob2.returnLName(), ob3.returnAge(), ob4.returnPhone(),
-                            ob5.returnEmail(),data.pin, data.privateKey, data.publicKey)
+        while True:
+            try:
+                ob1 = FirstName.returnFName(input("Enter first name:").title().strip())
+                if ob1.firstName == 'Q':
+                    break
+                ob2 = LastName.returnLName(input("Enter last name:").title().strip())
+                if ob2.lastName == 'Q':
+                    break
+                ob3 = Age.returnAge(input("Enter age:").strip())
+                if ob3.age == '0':
+                    break
+                ob4 = Phone.returnPhone(input("Enter phone:").strip())
+                if ob4.phone == '0':
+                    break
+                ob5 = Email.returnEmail(input("Enter email:").strip())
+                if ob5.mail == 'q':
+                    break
+                else:
+                    import time
+                    print("Processing data...")
+                    time.sleep(2)
+                    data = Code.GenerateCode()
+                    if data.pin != 'Error!':
+                        Database.PersonData(ob1.firstName, ob2.lastName, ob3.age, ob4.phone,
+                                        ob5.mail,data.pin, data.privateKey, data.publicKey)
+                        break
+                    else: print(data.pin)
+                    break
+            except KeyboardInterrupt:
+                print("Program terminated")
+                break
 
 
 class Code:
@@ -115,21 +127,26 @@ class Code:
         from string import printable
         from random import randint
         publicKey = ''
+        check = []
         for i in range(10):
             rand = randint(10, 61)
             key = printable[rand]
             publicKey += key
+        check.append(publicKey)
 
         privateKey = ''
-        for i in range(7):
+        for i in range(8):
             rand = randint(10, 61)
             key = printable[rand]
             privateKey += key
-
-        pin = str(randint(1000, 9999))
-
-        return cls(publicKey,privateKey, pin )
-
+        check.append(privateKey)
+        pin = ''
+        Pin = str(randint(1000, 9999))
+        pin += Pin
+        check.append(pin)
+        if len(check) == 3:
+            return cls(publicKey,privateKey, pin )
+        else: return cls('Error!', 'Error!', 'Error!')
 
 class Database:
     @classmethod
@@ -172,6 +189,7 @@ class Database:
                 print(f"Dear {records[0][0]},\nYour Login Details are:\nPin: {pin}\nPrivateKey: {privateKey}\n"
                       f"PublicKey: {publicKey}")
                 print("Save the details.")
+            else: print('Error!')
 
     @classmethod
     def update(cls, data):
@@ -191,7 +209,6 @@ class Database:
            return 'Error!'
        except IndexError:
            return 'Error!'
-
 
 class FetchData:
     def __init__(self, name, phone, pin, privateKey):
@@ -238,22 +255,19 @@ class Generate:
     @classmethod
     def key(cls):
         import time
-        Quit = ''
-        brake = ''
         while True:
             try:
-                if brake == 'Q':
-                    break
                 phone = input("""Enter your phone number to generate new login details or "E" to Exit: """).strip()
                 print("Working on it...")
                 if phone == 'e' or phone == 'E':
-                    Quit += phone.upper()
                     time.sleep(1)
                     break
                 data = FetchData.dataPhone(phone)
                 if len(data) != 0:
                    records = Code.GenerateCode()
-                   Database.personLog(phone,records.pin, records.privateKey,records.publicKey)
+                   if records.pin != "Error!":
+                       Database.personLog(phone,records.pin, records.privateKey,records.publicKey)
+                   else: print(records.pin)
                 break
             except KeyboardInterrupt:
                 print("Program terminated")
@@ -267,58 +281,60 @@ class Login:
         while True:
             if brQ == 'Q':
                 break
-
-            publicKey = input("""Enter your Public key to Login, N for new login details, or "Q" to Quit: """).strip()
-            if len(publicKey) == 1 and publicKey.upper() == 'N':
-                Generate.key()
-                continue
-
-            elif publicKey.upper() == 'Q':
-                brQ += 'Q'
-                print('Quiting...')
-                time.sleep(0.5)
-                break
-            else:
-                privateKey = input("Enter private key: ").strip()
-                time.sleep(0.5)
-                records = FetchData.dataPublickey(publicKey)
-                if records is None:
-                    print('Invalid public key.')
+            try:
+                publicKey = input("""Enter your Public key to Login, N for new login details, or "Q" to Quit: """).strip()
+                if len(publicKey) == 1 and publicKey.upper() == 'N':
+                    Generate.key()
                     continue
 
-                elif records.privateKey != privateKey:
-                    print('Invalid Private key.')
-                    continue
-
+                elif publicKey.upper() == 'Q':
+                    brQ += 'Q'
+                    print('Quiting...')
+                    time.sleep(0.5)
+                    break
                 else:
-                    print(f"Welcome {records.name},")
-                    while True:
-                        pin = input("Enter your pin to begin translation, N for new pin or O to quit: ").strip()
-                        if pin == records.pin:
-                            data = Database.update(records.phone)
-                            if data is None:
-                                print('Loading...')
-                                time.sleep(1)
-                                Translation.Translator()
-                                time.sleep(1)
-                                brQ += 'Q'
+                    privateKey = input("Enter private key: ").strip()
+                    time.sleep(0.5)
+                    records = FetchData.dataPublickey(publicKey)
+                    if records is None:
+                        print('Invalid public key.')
+                        continue
+
+                    elif records.privateKey != privateKey:
+                        print('Invalid Private key.')
+                        continue
+
+                    else:
+                        print(f"Welcome {records.name},")
+                        while True:
+                            pin = input("Enter your pin to begin translation, N for new pin or O to quit: ").strip()
+                            if pin == records.pin:
+                                data = Database.update(records.phone)
+                                if data is None:
+                                    print('Loading...')
+                                    time.sleep(1)
+                                    Translation.Translator()
+                                    time.sleep(1)
+                                    brQ += 'Q'
+                                    break
+                                else: print(data)
                                 break
-                            else: print(data)
-                            break
 
-                        elif pin.upper() == 'N':
-                            Generate.key()
-                            break
+                            elif pin.upper() == 'N':
+                                Generate.key()
+                                break
 
-                        elif pin == '0':
-                            brQ += 'Q'
-                            print('Quiting...')
-                            time.sleep(0.5)
-                            break
-                        else:
-                            print("Invalid pin.")
-                            continue
-
+                            elif pin == '0':
+                                brQ += 'Q'
+                                print('Quiting...')
+                                time.sleep(0.5)
+                                break
+                            else:
+                                print("Invalid pin.")
+                                continue
+            except KeyboardInterrupt:
+                print("Program terminated")
+                break
 
 class Language:
     def __init__(self, name):
