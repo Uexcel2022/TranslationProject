@@ -551,7 +551,7 @@ class Text:
             if len(text) != 0 and not text[0].isdigit():
                 return cls(text.capitalize())
             else:
-                print("Empty text input are not allowed and text can not start with 0 digit.")
+                print("Empty text input is not allowed and text can not start with 0 digit.")
                 text = input("Re-enter text or Q to quit.")
                 if text.upper() == 'Q':
                     return cls(text.title())
