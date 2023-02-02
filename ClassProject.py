@@ -40,7 +40,8 @@ class Email:
         while True:
             import re
             checkEmail = checkEmail.lower()
-            if matched := re.fullmatch(r"^[a-z0-9]+[_.]?[a-z0-9]+[_.]?[a-z0-9]+@[a-z0-9]+\.?[a-z]*\.([a-z]{2,3})", checkEmail):
+            if matched := re.fullmatch(r"^[a-z0-9]+[_.]?[a-z0-9]+[_.]?[a-z0-9]+@[a-z0-9]+\.?[a-z]*\.([a-z]{2,3})",
+                                       checkEmail):
                 return cls(matched.group())
             else:
                 print("Invalid email format.")
@@ -481,7 +482,8 @@ class Translation:
                         SourceText = ([word.text, word.text])
                         Target = list(lang2)
                         word = (list(lang2.values()))
-                        TranslationTable = pd.DataFrame({f'{source1.name.title()}': SourceText, 'Target': Target, 'Translated': word})
+                        TranslationTable = pd.DataFrame({f'{source1.name.title()}': SourceText, 'Target': Target,
+                                                         'Translated': word})
                         TranslationTable.index = TranslationTable.index + 1
                         print(TranslationTable)
                         try:
@@ -530,7 +532,8 @@ class Translation:
                         SourceText = ([word.text, word.text, word.text])
                         Target = list(lang3)
                         word = (list(lang3.values()))
-                        TranslationTable = pd.DataFrame({f'{source2.name.title()}': SourceText, 'Target': Target, 'Text': word})
+                        TranslationTable = pd.DataFrame({f'{source2.name.title()}': SourceText, 'Target': Target,
+                                                         'Text': word})
                         TranslationTable.index = TranslationTable.index + 1
                         print(TranslationTable)
                         try:
